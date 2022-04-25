@@ -14,8 +14,6 @@ class VehicleRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $fixtureLoader = new FixtureLoader();
-        $fixtureLoader->loadFixture();
         $manager = DatabaseManager::connect();
         $this->repository = new VehicleRepository($manager);
     }

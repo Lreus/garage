@@ -27,7 +27,7 @@ class DatabaseManager
         }
     }
 
-    private static function getTestDatabase(): string
+    public static function getTestDatabase(): string
     {
         $databaseName = 'garage_db_test.sqlite';
 
