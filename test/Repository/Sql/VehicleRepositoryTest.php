@@ -10,6 +10,8 @@ use Tests\fixtures\FixtureLoader;
 
 class VehicleRepositoryTest extends TestCase
 {
+    private const NEW_VEHICLE_PLATE = '123-ABC-69';
+
     private VehicleRepository $repository;
 
     protected function setUp(): void
@@ -34,10 +36,19 @@ class VehicleRepositoryTest extends TestCase
 
     public function testAddingVehicle(): void
     {
-        $newVehicle = new Vehicle('123-ABC-69', 'hiunday', 'ioniq');
+        $newVehicle = new Vehicle(self::NEW_VEHICLE_PLATE, 'hiunday', 'ioniq');
         $this->repository->save($newVehicle);
 
         $databaseVehicle = $this->repository->find($newVehicle->getPlate());
         self::assertTrue($newVehicle->equals($databaseVehicle));
+    }
+
+    /**
+     * @depends testAddingVehicle
+     */
+    public function testRemovingVehicle()
+    {
+        $this->repository->remove(self::NEW_VEHICLE_PLATE);
+        self::assertNull($this->repository->find(self::NEW_VEHICLE_PLATE));
     }
 }

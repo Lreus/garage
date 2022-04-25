@@ -9,6 +9,7 @@ class VehicleRepository
 {
     private const VEHICLE_BY_PLATE_REQUEST = 'SELECT * FROM Vehicle where plate = :plate';
     private const SAVE_VEHICLE_REQUEST = 'INSERT INTO Vehicle values(:plate, :model, :brand)';
+    private const DELETE_VEHICLE_REQUEST = 'DELETE FROM Vehicle WHERE plate = :plate';
 
     public function __construct(
         private \PDO $connection
@@ -71,5 +72,11 @@ class VehicleRepository
             'brand' => $vehicle->getBrand(),
             'model' => $vehicle->getModel(),
         ];
+    }
+
+    public function remove(string $plate): void
+    {
+        $this->connection->prepare(self::DELETE_VEHICLE_REQUEST)
+            ->execute(['plate' => $plate]);
     }
 }
