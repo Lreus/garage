@@ -28,7 +28,7 @@ class DatabaseManagerTest extends TestCase
 
     public function testConnectionForDatabaseIsSingleton(): void
     {
-        $database = $this->appendVarDirectory('garage_db_test.sqlite');
+        $database = $this->appendVarDirectory('a_new_db.sqlite');
 
         $first = DatabaseManager::connect($database);
         $second = DatabaseManager::connect($database);
